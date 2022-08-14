@@ -1,0 +1,8 @@
+com\daos\UserDaoImpl.class
+com\models\User.class
+com\configs\AppConfig.class
+com\configs\AppInitializer.class
+com\services\UserServiceImpl.class
+com\controllers\UserController.class
+com\daos\UserDao.class
+com\services\UserService.class
