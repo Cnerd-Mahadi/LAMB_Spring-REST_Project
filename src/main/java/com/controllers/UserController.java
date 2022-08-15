@@ -3,7 +3,6 @@ package com.controllers;
 import com.models.User;
 import com.services.UserService;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -34,18 +33,6 @@ public class UserController {
     @RequestMapping("/list/{id}")
     public User getUser(@PathVariable("id") Integer id) {
         return userService.get(id);
-    }
-
-    @GetMapping("/api/user/{id}")
-    public ResponseEntity<User> get(@PathVariable("id") int id) {
-
-        User user = userService.get(id);
-        return ResponseEntity.ok().body(user);
-    }
-
-    @PostMapping("/api/user/save")
-    public ResponseEntity<?> save(@RequestBody User user) {
-        return ResponseEntity.ok().body("Saved Successfully");
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = {"application/json"})

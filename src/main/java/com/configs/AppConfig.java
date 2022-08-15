@@ -1,6 +1,5 @@
 package com.configs;
 
-
 import com.mysql.cj.jdbc.MysqlDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -11,7 +10,6 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
@@ -35,11 +33,12 @@ public class AppConfig implements WebMvcConfigurer {
     @Bean
     public DataSource dataSource() {
         MysqlDataSource dataSource = new MysqlDataSource();
-        dataSource.setDatabaseName("hibernate_tutorial");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/hibernate_tutorial");
-        dataSource.setUser("root");
-        dataSource.setPassword("root");
+        dataSource.setDatabaseName("sql6512937");
+        dataSource.setUrl("jdbc:mysql://sql6.freesqldatabase.com:3306/sql6512937");
+        dataSource.setUser("sql6512937");
+        dataSource.setPassword("yxbk6a73q3");
         return dataSource;
+
     }
 
     @Bean
