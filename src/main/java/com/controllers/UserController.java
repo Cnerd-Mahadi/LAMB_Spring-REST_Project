@@ -1,5 +1,6 @@
 package com.controllers;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.models.User;
 import com.services.UserService;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
@@ -7,8 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
@@ -37,13 +38,13 @@ public class UserController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = {"application/json"})
-    public String create(HttpServletRequest httpRequest) {
+    public String create(@RequestBody Map<String,String> data) {
         User user = new User();
-        user.setUsername(httpRequest.getParameter("username"));
-        user.setEmail(httpRequest.getParameter("email"));
-        user.setPassword(httpRequest.getParameter("password"));
-        user.setRole(httpRequest.getParameter("role"));
-        user.setPhone(httpRequest.getParameter("phone"));
+        user.setUsername(data.get("username"));
+        user.setEmail(data.get("email"));
+        user.setPassword(data.get("password"));
+        user.setRole(data.get("role"));
+        user.setPhone(data.get("phone"));
         userService.save(user);
         return "Data Saved Successfully";
     }
