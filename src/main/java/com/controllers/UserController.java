@@ -2,13 +2,11 @@ package com.controllers;
 
 import com.models.User;
 import com.services.UserService;
-import com.sun.deploy.net.HttpRequest;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
