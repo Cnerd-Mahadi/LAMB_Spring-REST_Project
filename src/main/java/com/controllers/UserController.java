@@ -38,13 +38,13 @@ public class UserController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = {"application/json"})
-    public String create(HttpServletRequest httpRequest) {
-        User user = new User();
-        user.setUsername(httpRequest.getParameter("username"));
-        user.setEmail(httpRequest.getParameter("email"));
-        user.setPassword(httpRequest.getParameter("password"));
-        user.setRole(httpRequest.getParameter("role"));
-        user.setPhone(httpRequest.getParameter("phone"));
+    public String create(@RequestBody User user) {
+//        User user = new User();
+//        user.setUsername(httpRequest.getParameter("username"));
+//        user.setEmail(httpRequest.getParameter("email"));
+//        user.setPassword(httpRequest.getParameter("password"));
+//        user.setRole(httpRequest.getParameter("role"));
+//        user.setPhone(httpRequest.getParameter("phone"));
         userService.save(user);
         return "Data Saved Successfully";
     }
