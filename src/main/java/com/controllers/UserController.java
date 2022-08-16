@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -36,13 +37,13 @@ public class UserController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = {"application/json"})
-    public String create(@RequestBody User user) {
-//        User user = new User();
-//        user.setUsername(httpRequest.getParameter("username"));
-//        user.setEmail(httpRequest.getParameter("email"));
-//        user.setPassword(httpRequest.getParameter("password"));
-//        user.setRole(httpRequest.getParameter("role"));
-//        user.setPhone(httpRequest.getParameter("phone"));
+    public String create(HttpServletRequest httpRequest) {
+        User user = new User();
+        user.setUsername(httpRequest.getParameter("username"));
+        user.setEmail(httpRequest.getParameter("email"));
+        user.setPassword(httpRequest.getParameter("password"));
+        user.setRole(httpRequest.getParameter("role"));
+        user.setPhone(httpRequest.getParameter("phone"));
         userService.save(user);
         return "Data Saved Successfully";
     }
