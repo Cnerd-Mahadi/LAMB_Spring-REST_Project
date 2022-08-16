@@ -27,6 +27,32 @@ public class User {
     @Column(name = "phone", nullable = false)
     private String phone;
 
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private Visitor visitor;
+
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private Donor donor;
+
+    public Visitor getVisitor() {
+        return visitor;
+    }
+
+    public void setVisitor(Visitor visitor) {
+        this.visitor = visitor;
+    }
+
+    public Donor getDonor() {
+        return donor;
+    }
+
+    public void setDonor(Donor donor) {
+        this.donor = donor;
+    }
+
+
+
     public int getUserId() {
         return userId;
     }

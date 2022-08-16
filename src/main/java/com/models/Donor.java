@@ -22,6 +22,30 @@ public class Donor {
     @Column(name = "blood_type", nullable = false)
     private String bloodType;
 
+    @OneToOne(mappedBy = "donor")
+    private User donor;
+
+
+
+    @OneToOne(mappedBy = "visitor")
+    private User visitor;
+
+    public User getDonor() {
+        return donor;
+    }
+
+    public void setDonor(User donor) {
+        this.donor = donor;
+    }
+
+    public User getVisitor() {
+        return visitor;
+    }
+
+    public void setVisitor(User visitor) {
+        this.visitor = visitor;
+    }
+
     public int getDonorId() {
         return donorId;
     }
