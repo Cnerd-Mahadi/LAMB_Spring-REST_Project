@@ -30,7 +30,7 @@ public class UserDaoImpl implements UserDao {
     public List<User> uniqueCheckMaterials() {
         Session session = this.sessionFactory.getCurrentSession();
         Query<User> userQuery = session.createQuery("select email, username from User", User.class);
-        List<User> users = userQuery.getResultList();
+        List<User> users = userQuery.list();
         return users == null? new ArrayList<User>() : users;
     }
 
