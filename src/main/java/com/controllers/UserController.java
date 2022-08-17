@@ -33,14 +33,14 @@ public class UserController {
     public List<List<String>> doRegistration() {
 
         List<User> users = userService.getAll();
-        List<String> emails = new ArrayList<>();
-        List<String> usernames = new ArrayList<>();
+        List<String> emails = new ArrayList<String>();
+        List<String> usernames = new ArrayList<String>();
         for (User user:users) {
             emails.add(user.getEmail());
             usernames.add(user.getUsername());
         }
 
-        List<List<String>> things = new ArrayList<>();
+        List<List<String>> things = new ArrayList();
         things.add(emails);
         things.add(usernames);
 
