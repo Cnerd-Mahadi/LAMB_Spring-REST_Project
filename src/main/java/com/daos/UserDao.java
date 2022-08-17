@@ -8,6 +8,8 @@ public interface UserDao {
 
     public List<User> getAll();
 
+    public List<User> uniqueCheckMaterials();
+
     public void save(User user);
 
     public User get(int id);

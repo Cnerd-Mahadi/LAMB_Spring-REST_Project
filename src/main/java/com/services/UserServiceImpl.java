@@ -24,6 +24,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> uniqueCheckMaterials() {
+        return userDao.uniqueCheckMaterials();
+    }
+
+    @Override
     public void save(User user) {
         userDao.save(user);
     }
