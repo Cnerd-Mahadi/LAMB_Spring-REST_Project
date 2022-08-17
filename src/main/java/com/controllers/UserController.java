@@ -67,7 +67,8 @@ public class UserController {
         }
 
 
-        return new ResponseEntity(HttpStatus.CREATED);
+        return new ResponseEntity(
+                user,HttpStatus.CREATED);
     }
 
     @RequestMapping("/list")
