@@ -20,11 +20,6 @@ public class VisitorController {
         this.visitorService = visitorService;
     }
 
-    @InitBinder
-    public void initBinder(WebDataBinder webDataBinder) {
-        StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
-        webDataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
-    }
 
 
 }

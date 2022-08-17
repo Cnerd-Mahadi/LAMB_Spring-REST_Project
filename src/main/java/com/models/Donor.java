@@ -7,28 +7,24 @@ import javax.persistence.*;
 public class Donor {
 
     @Id
-    @Column(name = "donor_id", nullable = false)
+    @Column(name = "donor_id")
     private int donorId;
 
-    @Column(name = "area", nullable = false)
+    @Column(name = "area")
     private String area;
 
-    @Column(name = "eligibility", nullable = false)
+    @Column(name = "eligibility")
     private String eligibility;
 
-    @Column(name = "last_donate", nullable = false)
+    @Column(name = "last_donate")
     private String lastDonate;
 
-    @Column(name = "blood_type", nullable = false)
+    @Column(name = "blood_type")
     private String bloodType;
 
     @OneToOne(mappedBy = "donor")
     private User donor;
 
-
-
-    @OneToOne(mappedBy = "visitor")
-    private User visitor;
 
     public User getDonor() {
         return donor;
@@ -36,14 +32,6 @@ public class Donor {
 
     public void setDonor(User donor) {
         this.donor = donor;
-    }
-
-    public User getVisitor() {
-        return visitor;
-    }
-
-    public void setVisitor(User visitor) {
-        this.visitor = visitor;
     }
 
     public int getDonorId() {

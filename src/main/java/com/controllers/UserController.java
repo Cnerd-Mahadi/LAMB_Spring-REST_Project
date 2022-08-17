@@ -1,7 +1,10 @@
 package com.controllers;
 
+import com.models.Donor;
 import com.models.User;
+import com.services.DonorService;
 import com.services.UserService;
+import com.services.VisitorService;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -15,16 +18,15 @@ import java.util.Map;
 public class UserController {
 
     private final UserService userService;
+    private final DonorService donorService;
+    private final VisitorService visitorService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, DonorService donorService, VisitorService visitorService) {
         this.userService = userService;
+        this.donorService = donorService;
+        this.visitorService = visitorService;
     }
 
-    @InitBinder
-    public void initBinder(WebDataBinder webDataBinder) {
-        StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
-        webDataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
-    }
 
     @RequestMapping("/list")
     public List<User> list(Model model, @RequestParam(required = false) String sortKey) {
@@ -45,6 +47,19 @@ public class UserController {
         user.setRole(data.get("role"));
         user.setPhone(data.get("phone"));
         userService.save(user);
+
+        if(user.getRole() == "donor") {
+
+            Donor donor = new Donor();
+            donor.setDonorId(user.getUserId());
+            donor.setArea(data.get("area"));
+            donor.setEligibility(data.get("eligibility"));
+            donor.setLastDonate(data.get("last_donate"));
+            donor.setBloodType("blood_type");
+            donorService.save(donor);
+        }
+
+
         return "Data Saved Successfully";
     }
 

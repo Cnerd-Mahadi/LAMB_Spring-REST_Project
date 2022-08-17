@@ -20,11 +20,6 @@ public class DonorController {
         this.donorService = donorService;
     }
 
-    @InitBinder
-    public void initBinder(WebDataBinder webDataBinder) {
-        StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
-        webDataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
-    }
 
 
 }
