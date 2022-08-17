@@ -54,7 +54,8 @@ public class UserController {
             Visitor visitor = new Visitor();
             visitor.setVisitorId(user.getUserId());
             visitor.setDob(data.get("dob"));
-            visitorService.save(visitor);
+            user.setVisitor(visitor);
+            visitorService.save(user.getVisitor());
         }
 
         else {
@@ -64,7 +65,8 @@ public class UserController {
                 donor.setEligibility(data.get("eligibility"));
                 donor.setLastDonate(data.get("last_donate"));
                 donor.setBloodType("blood_type");
-                donorService.save(donor);
+                user.setDonor(donor);
+                donorService.save(user.getDonor());
         }
 
 
