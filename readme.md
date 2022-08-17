@@ -61,3 +61,18 @@ Donor Dash
 Personal Info  
 Blood Requests  
 
+
+EXTRA->  
+https://lamb-backend.herokuapp.com/user/register
+"username": "TAFSIR",  
+"email": "donor@gmail.com",  
+"password": "1234",  
+"role": "donor",  
+"phone": "0174569875",  
+"area": "B",
+"dob": "10-10-1999",  
+  
+"eligibility": "YES",    
+"last_donate": "10-10-2021",    
+"blood_type": "O+"    
+
