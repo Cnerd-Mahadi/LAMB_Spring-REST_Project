@@ -2,6 +2,7 @@ package com.controllers;
 
 import com.models.Donor;
 import com.models.User;
+import com.models.Visitor;
 import com.services.DonorService;
 import com.services.UserService;
 import com.services.VisitorService;
@@ -48,15 +49,22 @@ public class UserController {
         user.setPhone(data.get("phone"));
         userService.save(user);
 
-        if(user.getRole().equals("donor")) {
+        if(user.getRole().equals("visitor")) {
 
-            Donor donor = new Donor();
-            donor.setDonorId(user.getUserId());
-            donor.setArea(data.get("area"));
-            donor.setEligibility(data.get("eligibility"));
-            donor.setLastDonate(data.get("last_donate"));
-            donor.setBloodType("blood_type");
-            donorService.save(donor);
+            Visitor visitor = new Visitor();
+            visitor.setVisitorId(user.getUserId());
+            visitor.setDob(data.get("dob"));
+            visitorService.save(visitor);
+        }
+
+        else {
+                Donor donor = new Donor();
+                donor.setDonorId(user.getUserId());
+                donor.setArea(data.get("area"));
+                donor.setEligibility(data.get("eligibility"));
+                donor.setLastDonate(data.get("last_donate"));
+                donor.setBloodType("blood_type");
+                donorService.save(donor);
         }
 
 
