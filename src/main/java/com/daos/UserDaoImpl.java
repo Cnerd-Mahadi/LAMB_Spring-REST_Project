@@ -29,9 +29,17 @@ public class UserDaoImpl implements UserDao {
     @Override
     public List<User> uniqueCheckMaterials() {
         Session session = this.sessionFactory.getCurrentSession();
-        Query<User> userQuery = session.createQuery("select email, username from User", User.class);
-        List<User> users = userQuery.list();
-        return users == null? new ArrayList<User>() : users;
+        Query userQuery = session.createQuery("select email, username from User");
+        List<Object[]> objs= (List<Object[]>)userQuery.list();
+        List<User> users = new ArrayList<User>();
+        for(Object[] obj: objs){
+            User user = new User();
+            user.setEmail((String)obj[0]);
+            user.setUsername((String)obj[1]);
+            users.add(user);
+        }
+
+        return users;
     }
 
 
