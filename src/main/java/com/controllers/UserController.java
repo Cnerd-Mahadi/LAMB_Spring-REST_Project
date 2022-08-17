@@ -1,6 +1,5 @@
 package com.controllers;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
 import com.models.User;
 import com.services.UserService;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
