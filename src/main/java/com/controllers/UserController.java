@@ -48,7 +48,7 @@ public class UserController {
         user.setPhone(data.get("phone"));
         userService.save(user);
 
-        if(user.getRole() == "donor") {
+        if(user.getRole().equals("donor")) {
 
             Donor donor = new Donor();
             donor.setDonorId(user.getUserId());
