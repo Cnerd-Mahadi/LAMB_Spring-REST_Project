@@ -6,7 +6,10 @@ import com.models.Visitor;
 import com.services.DonorService;
 import com.services.UserService;
 import com.services.VisitorService;
+import com.sun.deploy.nativesandbox.comm.Response;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -38,7 +41,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST, consumes = {"application/json"})
-    public String doRegistration(@RequestBody Map<String,String> data) {
+    public ResponseEntity doRegistration(@RequestBody Map<String,String> data) {
         User user = new User();
         user.setUsername(data.get("username"));
         user.setEmail(data.get("email"));
@@ -68,7 +71,7 @@ public class UserController {
         }
 
 
-        return "Data Saved Successfully";
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 
     @RequestMapping("/list")
