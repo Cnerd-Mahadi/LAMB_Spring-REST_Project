@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -28,19 +29,27 @@ public class UserController {
         this.visitorService = visitorService;
     }
 
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public List<List<String>> doRegistration() {
 
-    @RequestMapping("/list")
-    public List<User> list(Model model, @RequestParam(required = false) String sortKey) {
-        return userService.getAll();
+        List<User> users = userService.getAll();
+        List<String> emails = new ArrayList<>();
+        List<String> usernames = new ArrayList<>();
+        for (User user:users) {
+            emails.add(user.getEmail());
+            usernames.add(user.getUsername());
+        }
+
+        List<List<String>> things = new ArrayList<>();
+        things.add(emails);
+        things.add(usernames);
+
+        return things;
+
     }
 
-    @RequestMapping("/list/{id}")
-    public User getUser(@PathVariable("id") Integer id) {
-        return userService.get(id);
-    }
-
-    @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = {"application/json"})
-    public String create(@RequestBody Map<String,String> data) {
+    @RequestMapping(value = "/register", method = RequestMethod.POST, consumes = {"application/json"})
+    public String doRegistration(@RequestBody Map<String,String> data) {
         User user = new User();
         user.setUsername(data.get("username"));
         user.setEmail(data.get("email"));
@@ -73,12 +82,16 @@ public class UserController {
         return "Data Saved Successfully";
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.GET)
-    public String userUpdateForm(@RequestParam("userId") int id, Model model) {
-        User user = userService.get(id);
-        model.addAttribute("user", user);
-        return "update-user-form";
+    @RequestMapping("/list")
+    public List<User> list(Model model, @RequestParam(required = false) String sortKey) {
+        return userService.getAll();
     }
+
+    @RequestMapping("/list/{id}")
+    public User getUser(@PathVariable("id") Integer id) {
+        return userService.get(id);
+    }
+
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String update(@ModelAttribute("user") User user) {

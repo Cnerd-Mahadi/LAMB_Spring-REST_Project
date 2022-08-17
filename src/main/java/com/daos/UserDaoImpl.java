@@ -26,6 +26,7 @@ public class UserDaoImpl implements UserDao {
         return users == null ? new ArrayList<User>() : users;
     }
 
+
     @Override
     public void save(User user) {
         Session session = this.sessionFactory.getCurrentSession();
