@@ -23,7 +23,7 @@ public class Post {
     @JoinColumn(name = "user_id_fk")
     private  User postUserInfo;
 
-    //@JsonManagedReference
+    @JsonManagedReference
     public User getPostUserInfo() {
         return postUserInfo;
     }

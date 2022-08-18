@@ -37,7 +37,7 @@ public class User {
 
     @OneToMany(mappedBy = "postUserInfo")
     private List<Post> postInfo;
-    //@JsonBackReference
+    @JsonBackReference
     public List<Post> getPostInfo() {
         return postInfo;
     }
@@ -45,7 +45,7 @@ public class User {
     public void setPostInfo(List<Post> postInfo) {
         this.postInfo = postInfo;
     }
-    //@JsonBackReference
+    @JsonBackReference
     public Donor getDonorInfo() {
         return donorInfo;
     }
