@@ -21,7 +21,7 @@ public class PostDaoImpl implements PostDao {
     @Override
     public List<Post> getAll() {
         Session session = this.sessionFactory.getCurrentSession();
-        Query<Post> postQuery = session.createQuery("from Post order by postId desc", Post.class);
+        Query<Post> postQuery = session.createQuery("from Post p order by p.postId desc", Post.class);
         List<Post> posts = postQuery.getResultList();
         return posts == null ? new ArrayList<Post>() : posts;
     }

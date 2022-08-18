@@ -50,7 +50,8 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User get(int id) {
         Session session = this.sessionFactory.getCurrentSession();
-        Query userQuery = session.createQuery("select u.userId, u.email, u.username, u.role, u.phone, u.area from User u");
+        Query userQuery = session.createQuery("select u.userId, u.email, u.username, u.role, u.phone, u.area from User u where u.userId = :uid");
+        userQuery.setParameter("uid", id);
         return (User)userQuery.uniqueResult();
     }
 
