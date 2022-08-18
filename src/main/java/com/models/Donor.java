@@ -25,7 +25,7 @@ public class Donor {
     @OneToOne
     @JoinColumn(name = "user_id_fk")
     private User donorUserInfo;
-    @JsonManagedReference
+    //@JsonManagedReference
     public User getDonorUserInfo() {
         return donorUserInfo;
     }
