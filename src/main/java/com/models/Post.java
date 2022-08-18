@@ -14,8 +14,8 @@ public class Post {
     @Column(name = "post_details")
     private String postDetails;
 
-    @Column(name = "last_details")
-    private String lastDetails;
+    @Column(name = "last_status")
+    private String lastStatus;
 
     @ManyToOne
     @JoinColumn(name = "post_info")
@@ -38,12 +38,12 @@ public class Post {
         this.postDetails = postDetails;
     }
 
-    public String getLastDetails() {
-        return lastDetails;
+    public String getLastStatus() {
+        return lastStatus;
     }
 
-    public void setLastDetails(String lastDetails) {
-        this.lastDetails = lastDetails;
+    public void setLastStatus(String lastStatus) {
+        this.lastStatus = lastStatus;
     }
 
     public User getUserInfo() {
