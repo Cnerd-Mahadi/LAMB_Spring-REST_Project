@@ -30,10 +30,10 @@ public class User {
     @Column(name = "area")
     private String area;
 
-    @OneToOne(targetEntity = Donor.class, mappedBy = "donorUserInfo")
+    @OneToOne(mappedBy = "donorUserInfo")
     private Donor donorInfo;
 
-    @OneToMany(targetEntity = Post.class, mappedBy = "postUserInfo")
+    @OneToMany(orphanRemoval = true)
     private List<Post> postInfo;
 
     public List<Post> getPostInfo() {
