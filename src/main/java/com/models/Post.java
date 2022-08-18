@@ -19,18 +19,18 @@ public class Post {
     @Column(name = "last_status")
     private String lastStatus;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id_fk")
-    private  User postUserInfo;
-
-    @JsonManagedReference
-    public User getPostUserInfo() {
-        return postUserInfo;
-    }
-
-    public void setPostUserInfo(User postUserInfo) {
-        this.postUserInfo = postUserInfo;
-    }
+//    @ManyToOne
+//    @JoinColumn(name = "user_id_fk")
+//    private  User postUserInfo;
+//
+//    @JsonManagedReference
+//    public User getPostUserInfo() {
+//        return postUserInfo;
+//    }
+//
+//    public void setPostUserInfo(User postUserInfo) {
+//        this.postUserInfo = postUserInfo;
+//    }
 
     public int getPostId() {
         return postId;
