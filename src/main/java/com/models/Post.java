@@ -1,5 +1,7 @@
 package com.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -21,6 +23,7 @@ public class Post {
     @JoinColumn(name = "user_id_fk")
     private  User postUserInfo;
 
+    @JsonManagedReference
     public User getPostUserInfo() {
         return postUserInfo;
     }

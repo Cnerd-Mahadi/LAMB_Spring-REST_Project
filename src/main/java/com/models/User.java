@@ -1,5 +1,7 @@
 package com.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -30,12 +32,12 @@ public class User {
     @Column(name = "area")
     private String area;
 
-    @OneToOne(orphanRemoval = true)
+    @OneToOne(mappedBy = "donorUserInfo")
     private Donor donorInfo;
 
-    @OneToMany(orphanRemoval = true)
+    @OneToMany(mappedBy = "postUserInfo")
     private List<Post> postInfo;
-
+    @JsonBackReference
     public List<Post> getPostInfo() {
         return postInfo;
     }
@@ -43,7 +45,7 @@ public class User {
     public void setPostInfo(List<Post> postInfo) {
         this.postInfo = postInfo;
     }
-
+    @JsonBackReference
     public Donor getDonorInfo() {
         return donorInfo;
     }

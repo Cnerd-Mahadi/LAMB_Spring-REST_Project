@@ -1,5 +1,7 @@
 package com.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -23,7 +25,7 @@ public class Donor {
     @OneToOne
     @JoinColumn(name = "user_id_fk")
     private User donorUserInfo;
-
+    @JsonManagedReference
     public User getDonorUserInfo() {
         return donorUserInfo;
     }
