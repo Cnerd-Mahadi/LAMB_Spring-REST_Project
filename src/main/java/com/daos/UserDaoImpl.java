@@ -51,7 +51,7 @@ public class UserDaoImpl implements UserDao {
     public User get(int id) {
         Session session = this.sessionFactory.getCurrentSession();
         Query userQuery = session.createQuery("select u.userId, u.email, u.username, u.role, u.phone, u.area from User u");
-        return (User)userQuery.getResultList();
+        return (User)userQuery.uniqueResult();
     }
 
     @Override
