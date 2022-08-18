@@ -29,7 +29,6 @@ public class PostController {
     @RequestMapping(value = "/create-post", method = RequestMethod.POST, consumes = {"application/json"})
     public ResponseEntity<Post> makePost(@RequestBody Post post) {
 
-        post.setPostUserInfo(userService.get(post.getPostUserInfo().getUserId()));
         postService.save(post);
         return ResponseEntity.ok(post);
     }
