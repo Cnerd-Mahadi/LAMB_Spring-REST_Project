@@ -64,6 +64,18 @@ Blood Requests
 
 EXTRA->  
 https://lamb-backend.herokuapp.com/user/register
+https://lamb-backend.herokuapp.com/visitor/dash  
+  
+  
+
+
+
+
+
+
+
+
+
 "username": "TAFSIR",  
 "email": "donor@gmail.com",  
 "password": "1234",  
