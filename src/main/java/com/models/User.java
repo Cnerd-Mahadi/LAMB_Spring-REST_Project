@@ -30,7 +30,7 @@ public class User {
     @Column(name = "area")
     private String area;
 
-    @OneToOne(mappedBy = "donorUserInfo")
+    @OneToOne(orphanRemoval = true)
     private Donor donorInfo;
 
     @OneToMany(orphanRemoval = true)
