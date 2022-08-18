@@ -30,7 +30,8 @@ public class PostController {
         Post post = new Post();
         post.setPostDetails(data.get("postDetails").toString());
         post.setLastStatus(data.get("lastStatus").toString());
-        post.setPostUserInfo((User)data.get("postUserInfo"));
+        User user = (User)data.get("postUserInfo");
+        post.setPostUserInfo(user);
         postService.save(post);
         return ResponseEntity.ok(post);
     }
