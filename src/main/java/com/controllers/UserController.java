@@ -37,7 +37,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST, consumes = {"application/json"})
-    public ResponseEntity doRegistration(@RequestBody Map<String,String> data) {
+    public ResponseEntity<User> doRegistration(@RequestBody Map<String,String> data) {
         User user = new User();
         user.setUsername(data.get("username"));
         user.setEmail(data.get("email"));
@@ -67,7 +67,7 @@ public class UserController {
         }
 
 
-        return new ResponseEntity(
+        return new ResponseEntity<User>(
                 user,HttpStatus.CREATED);
     }
 
