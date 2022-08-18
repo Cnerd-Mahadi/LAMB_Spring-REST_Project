@@ -30,28 +30,27 @@ public class User {
     @Column(name = "area")
     private String area;
 
-//    @OneToOne
-//    @JoinColumn(name = "user_id")
-//    private Donor donorInfo;
+    @OneToOne(mappedBy = "userInfo")
+    private Donor donorInfo;
 
-//    @OneToMany(mappedBy = "userInfo")
-//    private List<Post> postInfo;
+    @OneToMany(mappedBy = "userInfo")
+    private List<Post> postInfo;
 
-//    public List<Post> getPostInfo() {
-//        return postInfo;
-//    }
-//
-//    public void setPostInfo(List<Post> postInfo) {
-//        this.postInfo = postInfo;
-//    }
+    public List<Post> getPostInfo() {
+        return postInfo;
+    }
 
-//    public Donor getDonorInfo() {
-//        return donorInfo;
-//    }
-//
-//    public void setDonorInfo(Donor donorInfo) {
-//        this.donorInfo = donorInfo;
-//    }
+    public void setPostInfo(List<Post> postInfo) {
+        this.postInfo = postInfo;
+    }
+
+    public Donor getDonorInfo() {
+        return donorInfo;
+    }
+
+    public void setDonorInfo(Donor donorInfo) {
+        this.donorInfo = donorInfo;
+    }
 
     public String getArea() {
         return area;
