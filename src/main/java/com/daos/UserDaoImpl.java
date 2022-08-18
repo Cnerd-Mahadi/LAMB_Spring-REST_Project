@@ -29,17 +29,18 @@ public class UserDaoImpl implements UserDao {
     @Override
     public List<User> uniqueCheckMaterials() {
         Session session = this.sessionFactory.getCurrentSession();
-        Query userQuery = session.createQuery("select email, username from User");
-        List<Object[]> objs= (List<Object[]>)userQuery.list();
-        List<User> users = new ArrayList<User>();
-        for(Object[] obj: objs){
-            User user = new User();
-            user.setEmail((String)obj[0]);
-            user.setUsername((String)obj[1]);
-            users.add(user);
-        }
+        Query userQuery = session.createQuery("select u.email, u.username from User u");
+        List<User> users = userQuery.getResultList();
+//        List<Object[]> objs= (List<Object[]>)userQuery.list();
+//        List<User> users = new ArrayList<User>();
+//        for(Object[] obj: objs){
+//            User user = new User();
+//            user.setEmail((String)obj[0]);
+//            user.setUsername((String)obj[1]);
+//            users.add(user);
+//        }
 
-        return users;
+        return users == null? new ArrayList<User>() : users;
     }
 
 
@@ -58,9 +59,8 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User get(int id) {
         Session session = this.sessionFactory.getCurrentSession();
-        Query userQuery = session.createQuery("select * except password from User", User.class);
-        User user = (User)userQuery.getSingleResult();
-        return user == null ? new User() : user;
+        Query userQuery = session.createQuery(" from User");
+        return session.get(User.class, id);
     }
 
     @Override
