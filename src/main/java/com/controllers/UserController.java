@@ -49,7 +49,7 @@ public class UserController {
             donor.setArea(data.get("area"));
             donor.setEligibility(data.get("eligibility"));
             donor.setLastDonate(data.get("last_donate"));
-            donor.setBloodType("blood_type");
+            donor.setBloodType(data.get("blood_type"));
             user.setDonorInfo(donor);
             donorService.save(user.getDonorInfo());
         }
