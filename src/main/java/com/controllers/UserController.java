@@ -2,11 +2,8 @@ package com.controllers;
 
 import com.models.Donor;
 import com.models.User;
-import com.models.Visitor;
 import com.services.DonorService;
 import com.services.UserService;
-import com.services.VisitorService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,12 +18,10 @@ public class UserController {
 
     private final UserService userService;
     private final DonorService donorService;
-    private final VisitorService visitorService;
 
-    public UserController(UserService userService, DonorService donorService, VisitorService visitorService) {
+    public UserController(UserService userService, DonorService donorService) {
         this.userService = userService;
         this.donorService = donorService;
-        this.visitorService = visitorService;
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
@@ -38,6 +33,7 @@ public class UserController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST, consumes = {"application/json"})
     public ResponseEntity<User> doRegistration(@RequestBody Map<String,String> data) {
+
         User user = new User();
         user.setUsername(data.get("username"));
         user.setEmail(data.get("email"));
@@ -46,26 +42,17 @@ public class UserController {
         user.setPhone(data.get("phone"));
         userService.save(user);
 
-        if(user.getRole().equals("visitor")) {
+        if(user.getRole().equals("donor")) {
 
-            Visitor visitor = new Visitor();
-            visitor.setVisitorId(user.getUserId());
-            visitor.setDob(data.get("dob"));
-            user.setVisitor(visitor);
-            visitorService.save(user.getVisitor());
+            Donor donor = new Donor();
+            donor.setDonorId(user.getUserId());
+            donor.setArea(data.get("area"));
+            donor.setEligibility(data.get("eligibility"));
+            donor.setLastDonate(data.get("last_donate"));
+            donor.setBloodType("blood_type");
+            user.setDonorInfo(donor);
+            donorService.save(user.getDonorInfo());
         }
-
-        else {
-                Donor donor = new Donor();
-                donor.setDonorId(user.getUserId());
-                donor.setArea(data.get("area"));
-                donor.setEligibility(data.get("eligibility"));
-                donor.setLastDonate(data.get("last_donate"));
-                donor.setBloodType("blood_type");
-                user.setDonor(donor);
-                donorService.save(user.getDonor());
-        }
-
 
         return ResponseEntity.ok(user);
     }

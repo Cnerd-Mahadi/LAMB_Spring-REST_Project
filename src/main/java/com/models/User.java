@@ -26,31 +26,28 @@ public class User {
     @Column(name = "phone")
     private String phone;
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private Visitor visitor;
+    @Column(name = "area")
+    private String area;
 
     @OneToOne
     @JoinColumn(name = "user_id")
-    private Donor donor;
+    private Donor donorInfo;
 
-    public Visitor getVisitor() {
-        return visitor;
+    public Donor getDonorInfo() {
+        return donorInfo;
     }
 
-    public void setVisitor(Visitor visitor) {
-        this.visitor = visitor;
+    public void setDonorInfo(Donor donorInfo) {
+        this.donorInfo = donorInfo;
     }
 
-    public Donor getDonor() {
-        return donor;
+    public String getArea() {
+        return area;
     }
 
-    public void setDonor(Donor donor) {
-        this.donor = donor;
+    public void setArea(String area) {
+        this.area = area;
     }
-
-
 
     public int getUserId() {
         return userId;
