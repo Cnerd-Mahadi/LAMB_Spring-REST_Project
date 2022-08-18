@@ -32,28 +32,6 @@ public class User {
     @Column(name = "area")
     private String area;
 
-    @OneToOne(mappedBy = "donorUserInfo")
-    private Donor donorInfo;
-
-    @OneToMany(mappedBy = "postUserInfo")
-    private List<Post> postInfo;
-    @JsonBackReference
-    public List<Post> getPostInfo() {
-        return postInfo;
-    }
-
-    public void setPostInfo(List<Post> postInfo) {
-        this.postInfo = postInfo;
-    }
-    @JsonBackReference
-    public Donor getDonorInfo() {
-        return donorInfo;
-    }
-
-    public void setDonorInfo(Donor donorInfo) {
-        this.donorInfo = donorInfo;
-    }
-
     public String getArea() {
         return area;
     }

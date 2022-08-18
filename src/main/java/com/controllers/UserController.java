@@ -49,9 +49,8 @@ public class UserController {
             donor.setEligibility(data.get("eligibility"));
             donor.setLastDonate(data.get("last_donate"));
             donor.setBloodType(data.get("blood_type"));
-            donor.setDonorUserInfo(user);
-            user.setDonorInfo(donor);
-            donorService.save(user.getDonorInfo());
+            donor.setUserFK(user.getUserId());
+            donorService.save(donor);
         }
 
         return ResponseEntity.ok(user);

@@ -22,16 +22,15 @@ public class Donor {
     @Column(name = "blood_type")
     private String bloodType;
 
-    @OneToOne
-    @JoinColumn(name = "user_id_fk")
-    private User donorUserInfo;
-    @JsonManagedReference
-    public User getDonorUserInfo() {
-        return donorUserInfo;
+    @Column(name = "user_id_fk")
+    private int userFK;
+
+    public int getUserFK() {
+        return userFK;
     }
 
-    public void setDonorUserInfo(User donorUserInfo) {
-        this.donorUserInfo = donorUserInfo;
+    public void setUserFK(int userFK) {
+        this.userFK = userFK;
     }
 
     public int getDonorId() {
