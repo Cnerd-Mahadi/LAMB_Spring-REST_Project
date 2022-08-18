@@ -22,16 +22,15 @@ public class Donor {
     @Column(name = "blood_type")
     private String bloodType;
 
-    @OneToOne(mappedBy = "donor")
-    private User donor;
+    @OneToOne(mappedBy = "donorInfo")
+    private User userInfo;
 
-
-    public User getDonor() {
-        return donor;
+    public User getUserInfo() {
+        return userInfo;
     }
 
-    public void setDonor(User donor) {
-        this.donor = donor;
+    public void setUserInfo(User userInfo) {
+        this.userInfo = userInfo;
     }
 
     public int getDonorId() {

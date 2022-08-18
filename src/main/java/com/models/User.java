@@ -1,6 +1,7 @@
 package com.models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -30,8 +31,19 @@ public class User {
     private String area;
 
     @OneToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "donor_info")
     private Donor donorInfo;
+
+    @OneToMany(mappedBy = "userInfo")
+    private List<Post> postInfo;
+
+    public List<Post> getPostInfo() {
+        return postInfo;
+    }
+
+    public void setPostInfo(List<Post> postInfo) {
+        this.postInfo = postInfo;
+    }
 
     public Donor getDonorInfo() {
         return donorInfo;
