@@ -31,7 +31,7 @@ public class User {
     private String area;
 
     @OneToOne
-    @JoinColumn(name = "donor_id")
+    @JoinColumn(name = "user_id")
     private Donor donorInfo;
 
     @OneToMany(mappedBy = "userInfo")
