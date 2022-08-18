@@ -48,8 +48,5 @@ public class UserServiceImpl implements UserService {
         userDao.delete(id);
     }
 
-    @Override
-    public List<User> getAll(String firstName) {
-        return userDao.getAll(firstName);
-    }
+
 }

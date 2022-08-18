@@ -12,7 +12,7 @@ import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/donor")
+@RequestMapping("/backend")
 public class DonorController {
 
     private final DonorService donorService;

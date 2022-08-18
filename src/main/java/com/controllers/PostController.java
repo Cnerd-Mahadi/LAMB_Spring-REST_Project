@@ -13,7 +13,7 @@ import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/post")
+@RequestMapping("/backend")
 public class PostController {
 
     private final PostService postService;

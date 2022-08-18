@@ -50,9 +50,17 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User get(int id) {
+    public User getWithCred(int id) {
         Session session = this.sessionFactory.getCurrentSession();
         return session.get(User.class, id);
+    }
+
+    @Override
+    public User get(int id) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Query userQuery = session.createQuery("select * except password from User", User.class);
+        User user = (User)userQuery.getSingleResult();
+        return user == null ? new User() : user;
     }
 
     @Override
@@ -67,10 +75,5 @@ public class UserDaoImpl implements UserDao {
         sessionFactory.getCurrentSession().delete(user);
     }
 
-    @Override
-    public List<User> getAll(String firstName) {
-        Session session = sessionFactory.getCurrentSession();
-        Query<User> userQuery = session.createQuery("from User where firstName like '%" + firstName + "%'", User.class);
-        return userQuery.getResultList();
-    }
+
 }

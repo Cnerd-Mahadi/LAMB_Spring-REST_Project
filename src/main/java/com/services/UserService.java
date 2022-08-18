@@ -18,5 +18,4 @@ public interface UserService {
 
     public void delete(int id);
 
-    public List<User> getAll(String firstName);
 }

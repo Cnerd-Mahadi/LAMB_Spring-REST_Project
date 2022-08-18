@@ -13,7 +13,7 @@ import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/user")
+@RequestMapping("/backend")
 public class UserController {
 
     private final UserService userService;
@@ -24,15 +24,15 @@ public class UserController {
         this.donorService = donorService;
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    @RequestMapping(value = "/get-unique-check", method = RequestMethod.GET)
     public List<User> doRegistration() {
 
         return userService.uniqueCheckMaterials();
 
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST, consumes = {"application/json"})
-    public ResponseEntity<User> doRegistration(@RequestBody Map<String,String> data) {
+    @RequestMapping(value = "/save-user", method = RequestMethod.POST, consumes = {"application/json"})
+    public ResponseEntity<Integer> doRegistration(@RequestBody Map<String,String> data) {
 
         User user = new User();
         user.setUsername(data.get("username"));
@@ -53,36 +53,25 @@ public class UserController {
             donorService.save(donor);
         }
 
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(user.getUserId());
     }
 
-    @RequestMapping("/list")
-    public List<User> list(Model model, @RequestParam(required = false) String sortKey) {
-        return userService.getAll();
-    }
-
-    @RequestMapping("/{id}")
+    @RequestMapping("get-user/{id}")
     public User getUser(@PathVariable("id") Integer id) {
         return userService.get(id);
     }
 
 
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @RequestMapping(value = "/update-user", method = RequestMethod.POST)
     public String update(@ModelAttribute("user") User user) {
         userService.update(user);
         return "redirect:/user/list";
     }
 
-    @RequestMapping("/delete")
+    @RequestMapping("/delete-user")
     public String delete(@RequestParam("userId") int id) {
         userService.delete(id);
         return "redirect:/user/list";
     }
 
-    @RequestMapping("/search")
-    public String delete(@RequestParam("searchValue") String firstname, Model model) {
-        List<User> users = userService.getAll(firstname);
-        model.addAttribute("users", users);
-        return "user-list";
-    }
 }

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/visitor")
+@RequestMapping("/backend")
 public class VisitorController {
 
     private final UserService userService;
