@@ -23,7 +23,7 @@ public class PostController {
         this.postService = postService;
     }
 
-    @RequestMapping(value = "/post", method = RequestMethod.POST, consumes = {"application/json"})
+    @RequestMapping(value = "/create-post", method = RequestMethod.POST, consumes = {"application/json"})
     public ResponseEntity<Post> makePost(@RequestBody Post post) {
 
         postService.save(post);
