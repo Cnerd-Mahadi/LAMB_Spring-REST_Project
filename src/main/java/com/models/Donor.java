@@ -10,8 +10,6 @@ public class Donor {
     @Column(name = "donor_id")
     private int donorId;
 
-    @Column(name = "area")
-    private String area;
 
     @Column(name = "eligibility")
     private String eligibility;
@@ -40,14 +38,6 @@ public class Donor {
 
     public void setDonorId(int donorId) {
         this.donorId = donorId;
-    }
-
-    public String getArea() {
-        return area;
-    }
-
-    public void setArea(String area) {
-        this.area = area;
     }
 
     public String getEligibility() {
