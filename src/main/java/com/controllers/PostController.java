@@ -7,14 +7,12 @@ import com.services.DonorService;
 import com.services.PostService;
 import com.services.UserService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/post")
 public class PostController {
 
@@ -27,10 +25,10 @@ public class PostController {
     }
 
     @RequestMapping(value = "/create-post", method = RequestMethod.POST, consumes = {"application/json"})
-    public ResponseEntity<Post> makePost(@RequestBody Post post) {
+    public ResponseEntity<String> makePost(@RequestBody Map<String,String> post) {
 
-        postService.save(post);
-        return ResponseEntity.ok(post);
+        //postService.save(post);
+        return ResponseEntity.ok("GREAT");
     }
 
 
