@@ -33,7 +33,7 @@ public class User {
     @OneToOne(mappedBy = "donorUserInfo")
     private Donor donorInfo;
 
-    @OneToMany(mappedBy = "postUserInfo")
+    @OneToMany(targetEntity = Post.class,mappedBy = "postUserInfo")
     private List<Post> postInfo;
 
     public List<Post> getPostInfo() {
