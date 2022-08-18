@@ -31,15 +31,6 @@ public class UserDaoImpl implements UserDao {
         Session session = this.sessionFactory.getCurrentSession();
         Query userQuery = session.createQuery("select u.email, u.username from User u");
         List<User> users = userQuery.getResultList();
-//        List<Object[]> objs= (List<Object[]>)userQuery.list();
-//        List<User> users = new ArrayList<User>();
-//        for(Object[] obj: objs){
-//            User user = new User();
-//            user.setEmail((String)obj[0]);
-//            user.setUsername((String)obj[1]);
-//            users.add(user);
-//        }
-
         return users == null? new ArrayList<User>() : users;
     }
 
@@ -59,8 +50,8 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User get(int id) {
         Session session = this.sessionFactory.getCurrentSession();
-        Query userQuery = session.createQuery(" from User");
-        return session.get(User.class, id);
+        Query userQuery = session.createQuery("select u.userId, u.email, u.username, u.role, u.phone, u.area from User u");
+        return (User)userQuery.getSingleResult();
     }
 
     @Override
