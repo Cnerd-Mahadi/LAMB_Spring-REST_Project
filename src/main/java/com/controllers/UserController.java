@@ -56,7 +56,7 @@ public class UserController {
         return ResponseEntity.ok(user.getUserId());
     }
 
-    @RequestMapping("get-user/{id}")
+    @RequestMapping("/get-user/{id}")
     public User getUser(@PathVariable("id") Integer id) {
         return userService.get(id);
     }
