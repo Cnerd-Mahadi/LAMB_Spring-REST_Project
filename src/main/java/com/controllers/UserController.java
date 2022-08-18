@@ -46,10 +46,10 @@ public class UserController {
         if(user.getRole().equals("donor")) {
 
             Donor donor = new Donor();
-            donor.setDonorId(user.getUserId());
             donor.setEligibility(data.get("eligibility"));
             donor.setLastDonate(data.get("last_donate"));
             donor.setBloodType(data.get("blood_type"));
+            donor.setDonorUserInfo(user);
             user.setDonorInfo(donor);
             donorService.save(user.getDonorInfo());
         }
