@@ -61,7 +61,7 @@ public class UserController {
         return userService.getAll();
     }
 
-    @RequestMapping("/list/{id}")
+    @RequestMapping("/{id}")
     public User getUser(@PathVariable("id") Integer id) {
         return userService.get(id);
     }
