@@ -24,14 +24,14 @@ public class Donor {
 
     @OneToOne
     @JoinColumn(name = "user_id_fk")
-    private User userInfo;
+    private User donorUserInfo;
 
-    public User getUserInfo() {
-        return userInfo;
+    public User getDonorUserInfo() {
+        return donorUserInfo;
     }
 
-    public void setUserInfo(User userInfo) {
-        this.userInfo = userInfo;
+    public void setDonorUserInfo(User donorUserInfo) {
+        this.donorUserInfo = donorUserInfo;
     }
 
     public int getDonorId() {

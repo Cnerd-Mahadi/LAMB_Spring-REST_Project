@@ -19,8 +19,15 @@ public class Post {
 
     @ManyToOne
     @JoinColumn(name = "user_id_fk")
-    private  User userInfo;
+    private  User postUserInfo;
 
+    public User getPostUserInfo() {
+        return postUserInfo;
+    }
+
+    public void setPostUserInfo(User postUserInfo) {
+        this.postUserInfo = postUserInfo;
+    }
 
     public int getPostId() {
         return postId;
@@ -45,15 +52,6 @@ public class Post {
     public void setLastStatus(String lastStatus) {
         this.lastStatus = lastStatus;
     }
-
-    public User getUserInfo() {
-        return userInfo;
-    }
-
-    public void setUserInfo(User userInfo) {
-        this.userInfo = userInfo;
-    }
-
 
 
 }
