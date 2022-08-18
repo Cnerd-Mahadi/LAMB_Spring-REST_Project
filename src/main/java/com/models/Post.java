@@ -18,7 +18,7 @@ public class Post {
     private String lastStatus;
 
     @ManyToOne
-    @JoinColumn(name = "post_info")
+    @JoinColumn(name = "postInfo")
     private  User userInfo;
 
 
