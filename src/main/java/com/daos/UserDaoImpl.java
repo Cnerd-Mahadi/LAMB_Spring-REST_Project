@@ -30,8 +30,15 @@ public class UserDaoImpl implements UserDao {
     public List<User> uniqueCheckMaterials() {
         Session session = this.sessionFactory.getCurrentSession();
         Query userQuery = session.createQuery("select u.email, u.username from User u");
-        List<User> users = userQuery.getResultList();
-        return users == null? new ArrayList<User>() : users;
+        List<Object[]> objs = userQuery.list();
+        List<User> users = new ArrayList<User>();
+        for(Object[] obj: objs){
+            User user = new User();
+            user.setEmail(obj[0].toString());
+            user.setUsername(obj[1].toString());
+            users.add(user);
+        }
+        return users;
     }
 
 
@@ -50,18 +57,33 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User get(int id) {
         Session session = this.sessionFactory.getCurrentSession();
-        Query userQuery = session.createQuery("from User u where u.userId = :uid");
+        Query userQuery = session.createQuery("select u.userId, u.email, u.username, u.role, u.phone, u.area from User u where u.userId = :uid");
         userQuery.setParameter("uid", id);
-        return (User)userQuery.uniqueResult();
-    }
+        Object[] obj = (Object[]) userQuery.uniqueResult();
+        User user = new User();
 
-//    select u.userId, u.email, u.username, u.role, u.phone, u.area
+        user.setUserId((Integer) obj[0]);
+        user.setUsername(obj[2].toString());
+        user.setEmail(obj[1].toString());
+        user.setRole(obj[3].toString());
+        user.setPhone(obj[4].toString());
+        user.setArea(obj[5].toString());
+        return user;
+    }
 
     @Override
     public void update(User user) {
         Session session = this.sessionFactory.getCurrentSession();
-        session.update(user);
+        Query userQuery = session.createQuery("UPDATE User u set u.username = :username, u.email = :email, u.phone = :phone, u.area = :area WHERE u.userId = :userId");
+        userQuery.setParameter("username", user.getUsername());
+        userQuery.setParameter("email", user.getEmail());
+        userQuery.setParameter("phone", user.getPhone());
+        userQuery.setParameter("area", user.getArea());
+        userQuery.setParameter("userId", user.getUserId());
+        userQuery.executeUpdate();
     }
+
+
 
     @Override
     public void delete(int id) {
