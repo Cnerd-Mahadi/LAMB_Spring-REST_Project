@@ -14,6 +14,8 @@ public interface DonorService {
 
     public Donor get(int id);
 
+    Donor getDonorEligibility(int userid);
+
     public void update(Donor donor);
 
     public void delete(int id);

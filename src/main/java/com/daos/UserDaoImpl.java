@@ -71,6 +71,7 @@ public class UserDaoImpl implements UserDao {
         return user;
     }
 
+
     @Override
     public void update(User user) {
         Session session = this.sessionFactory.getCurrentSession();

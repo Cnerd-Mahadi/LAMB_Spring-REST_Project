@@ -32,6 +32,11 @@ public class DonorController {
         return donorService.getAllByBlood(bloodType);
     }
 
+    @RequestMapping(value = "/get-donor-eligibility/{id}", method = RequestMethod.GET)
+    public Donor showAllDonorByBlood(@PathVariable("id") int id) {
+        return donorService.getDonorEligibility(id);
+    }
+
 
 
 

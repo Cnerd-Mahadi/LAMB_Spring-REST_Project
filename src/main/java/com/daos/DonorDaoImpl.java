@@ -1,6 +1,7 @@
 package com.daos;
 
 import com.models.Donor;
+import com.models.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -45,6 +46,19 @@ public class DonorDaoImpl implements DonorDao {
     public Donor get(int id) {
         Session session = this.sessionFactory.getCurrentSession();
         return session.get(Donor.class, id);
+    }
+
+    @Override
+    public Donor getDonorEligibility(int userid) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Query donorQuery = session.createQuery("select d.eligibility, d.lastDonate from Donor d where d.userFK = :uid");
+        donorQuery.setParameter("uid", userid);
+        Object[] obj = (Object[]) donorQuery.uniqueResult();
+        Donor donor = new Donor();
+
+        donor.setEligibility(obj[0].toString());
+        donor.setLastDonate(obj[1].toString());
+        return donor;
     }
 
     @Override

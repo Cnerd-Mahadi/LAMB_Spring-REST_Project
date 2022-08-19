@@ -14,6 +14,7 @@ public interface DonorDao {
 
     public Donor get(int id);
 
+    public Donor getDonorEligibility(int userid);
     public void update(Donor donor);
 
     public void delete(int id);

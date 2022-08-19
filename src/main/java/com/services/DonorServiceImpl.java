@@ -39,6 +39,9 @@ public class DonorServiceImpl implements DonorService {
     }
 
     @Override
+    public Donor getDonorEligibility(int userid) {return donorDao.getDonorEligibility(userid);}
+
+    @Override
     public void update(Donor donor) {
         donorDao.update(donor);
     }
