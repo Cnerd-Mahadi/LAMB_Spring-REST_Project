@@ -24,6 +24,11 @@ public class DonorServiceImpl implements DonorService {
     }
 
     @Override
+    public List<Donor> getAllByBlood(String bloodType) {
+        return donorDao.getAllByBlood(bloodType);
+    }
+
+    @Override
     public void save(Donor donor) {
         donorDao.save(donor);
     }

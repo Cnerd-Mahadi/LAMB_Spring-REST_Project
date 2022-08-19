@@ -11,36 +11,46 @@ import java.util.List;
 @Transactional
 public class PostServiceImpl implements PostService {
 
-    private final PostDao PostDao;
+    private final PostDao postDao;
 
     public PostServiceImpl(PostDao postDao) {
-        this.PostDao = postDao;
+        this.postDao = postDao;
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<Post> getAll() {
-        return PostDao.getAll();
+        return postDao.getAll();
+    }
+
+    @Override
+    public List<Post> getPostByUser(int id) {
+        return postDao.getPostByUser(id);
     }
 
     @Override
     public void save(Post post) {
-        PostDao.save(post);
+        postDao.save(post);
     }
 
     @Override
     public Post get(int id) {
-        return PostDao.get(id);
+        return postDao.get(id);
     }
 
     @Override
     public void update(Post post) {
-        PostDao.update(post);
+        postDao.update(post);
+    }
+
+    @Override
+    public void updateLastStatus(Post post) {
+        postDao.updateLastStatus(post);
     }
 
     @Override
     public void delete(int id) {
-        PostDao.delete(id);
+        postDao.delete(id);
     }
 
 }

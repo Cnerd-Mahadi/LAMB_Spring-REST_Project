@@ -8,6 +8,8 @@ public interface DonorDao {
 
     public List<Donor> getAll();
 
+    public List<Donor> getAllByBlood(String bloodGroup);
+
     public void save(Donor donor);
 
     public Donor get(int id);

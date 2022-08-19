@@ -1,5 +1,6 @@
 package com.daos;
 
+import com.models.Post;
 import com.models.User;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public interface UserDao {
     public User get(int id);
 
     public void update(User user);
+
 
     public void delete(int id);
 

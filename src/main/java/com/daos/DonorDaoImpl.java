@@ -27,6 +27,15 @@ public class DonorDaoImpl implements DonorDao {
     }
 
     @Override
+    public List<Donor> getAllByBlood(String bloodType) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Query<Donor> donorQuery = session.createQuery("from Donor d where d.bloodType =:bloodType", Donor.class);
+        donorQuery.setParameter("bloodType", bloodType);
+        List<Donor> donors = donorQuery.getResultList();
+        return donors == null ? new ArrayList<Donor>() : donors;
+    }
+
+    @Override
     public void save(Donor donor) {
         Session session = this.sessionFactory.getCurrentSession();
         session.save(donor);

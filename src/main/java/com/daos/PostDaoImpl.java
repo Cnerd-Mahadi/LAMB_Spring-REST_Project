@@ -21,7 +21,16 @@ public class PostDaoImpl implements PostDao {
     @Override
     public List<Post> getAll() {
         Session session = this.sessionFactory.getCurrentSession();
-        Query<Post> postQuery = session.createQuery("from Post p order by p.postId desc", Post.class);
+        Query<Post> postQuery = session.createQuery("from Post p where p.lastStatus = 'UNSOLVED' order by p.postId desc", Post.class);
+        List<Post> posts = postQuery.getResultList();
+        return posts == null ? new ArrayList<Post>() : posts;
+    }
+
+    @Override
+    public List<Post> getPostByUser(int id) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Query<Post> postQuery = session.createQuery("from Post p where p.userFK = :userid", Post.class);
+        postQuery.setParameter("userid", id);
         List<Post> posts = postQuery.getResultList();
         return posts == null ? new ArrayList<Post>() : posts;
     }
@@ -42,6 +51,21 @@ public class PostDaoImpl implements PostDao {
     public void update(Post post) {
         Session session = this.sessionFactory.getCurrentSession();
         session.update(post);
+    }
+
+    @Override
+    public void updateLastStatus(Post post) {
+
+        if(post.getLastStatus().equals("SOLVED"))
+                post.setLastStatus("UNSOLVED");
+        else
+            post.setLastStatus("SOLVED");
+
+        Session session = this.sessionFactory.getCurrentSession();
+        Query userQuery = session.createQuery("UPDATE Post p set p.lastStatus =:lastStatus WHERE p.postId = :postId");
+        userQuery.setParameter("lastStatus", post.getLastStatus());
+        userQuery.setParameter("postId", post.getPostId());
+        userQuery.executeUpdate();
     }
 
     @Override

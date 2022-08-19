@@ -62,10 +62,10 @@ public class UserController {
     }
 
 
-    @RequestMapping(value = "/update-user", method = RequestMethod.POST)
-    public String update(@ModelAttribute("user") User user) {
+    @RequestMapping(value = "/update-user", method = RequestMethod.POST, consumes = {"application/json"})
+    public ResponseEntity<User> update(@RequestBody User user) {
         userService.update(user);
-        return "redirect:/user/list";
+        return ResponseEntity.ok(user);
     }
 
     @RequestMapping("/delete-user")

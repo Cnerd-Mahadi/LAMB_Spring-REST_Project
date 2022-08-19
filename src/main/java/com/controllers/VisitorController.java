@@ -20,10 +20,7 @@ public class VisitorController {
         this.postService = postService;
     }
 
-    @RequestMapping(value = "/dash", method = RequestMethod.GET)
-    public List<Post> showAllPost() {
-        return postService.getAll();
-    }
+
 
 
 
