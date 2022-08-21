@@ -1,18 +1,14 @@
 package com.controllers;
 
-import com.models.Donor;
 import com.models.Post;
-import com.models.User;
-import com.services.DonorService;
 import com.services.PostService;
 import com.services.UserService;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletRequest;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -21,10 +17,12 @@ public class PostController {
 
     private final PostService postService;
     private final UserService userService;
+    private final UserController userController;
 
-    public PostController(PostService postService, UserService userService) {
+    public PostController(PostService postService, UserService userService, UserController userController) {
         this.postService = postService;
         this.userService = userService;
+        this.userController = userController;
     }
 
     @RequestMapping(value = "/create-post", method = RequestMethod.POST, consumes = {"application/json"})
@@ -39,9 +37,9 @@ public class PostController {
         return postService.get(id);
     }
 
-    @RequestMapping(value = "/get-all-post-user/{userid}", method = RequestMethod.GET)
-    public List<Post> getAllPostByUser(@PathVariable("userid") Integer userid) {
-        return postService.getPostByUser(userid);
+    @RequestMapping(value = "/get-all-post-user", method = RequestMethod.GET)
+    public List<Post> getAllPostByUser(ServletRequest servletRequest) {
+        return postService.getPostByUser(userController.getUser(servletRequest).getUserId());
     }
 
     @RequestMapping(value = "/get-all-post", method = RequestMethod.GET)

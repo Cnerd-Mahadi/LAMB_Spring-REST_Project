@@ -47,20 +47,20 @@ public class UserController {
 
     }
 
-    @RequestMapping(value = "/log", method = RequestMethod.POST, consumes = {"application/json"})
-    public String doR(@RequestBody AuthRequest request) {
-
-        User user = userService.getWithCredByEmail(request.getLogin());
-
-        //return ;
-        if(passwordEncoder.matches(request.getPassword(), user.getPassword()))
-            return "MATCHED";
-        return "NOT MATCHED";
-
-
-       // return userService.findByLoginAndPassword(request.getLogin(), request.getPassword());
-
-    }
+//    @RequestMapping(value = "/log", method = RequestMethod.POST, consumes = {"application/json"})
+//    public String doR(@RequestBody AuthRequest request) {
+//
+//        User user = userService.getWithCredByEmail(request.getLogin());
+//
+//        //return ;
+//        if(passwordEncoder.matches(request.getPassword(), user.getPassword()))
+//            return "MATCHED";
+//        return "NOT MATCHED";
+//
+//
+//       // return userService.findByLoginAndPassword(request.getLogin(), request.getPassword());
+//
+//    }
 
     @RequestMapping(value = "/login-user", method = RequestMethod.POST, consumes = {"application/json"})
     public ResponseEntity auth(@RequestBody AuthRequest request) {
@@ -104,15 +104,16 @@ public class UserController {
 
 
     @RequestMapping(value = "/update-user", method = RequestMethod.POST, consumes = {"application/json"})
-    public ResponseEntity<User> update(@RequestBody User user) {
+    public ResponseEntity<User> update(@RequestBody User user, ServletRequest servletRequest) {
+        user.setUserId(jwtFilter.extractUser(servletRequest).getUserId());
         userService.update(user);
         return ResponseEntity.ok(user);
     }
 
-    @RequestMapping("/delete-user")
-    public String delete(@RequestParam("userId") int id) {
-        userService.delete(id);
-        return "redirect:/user/list";
-    }
+//    @RequestMapping("/delete-user")
+//    public String delete(@RequestParam("userId") int id) {
+//        userService.delete(id);
+//        return "redirect:/user/list";
+//    }
 
 }
