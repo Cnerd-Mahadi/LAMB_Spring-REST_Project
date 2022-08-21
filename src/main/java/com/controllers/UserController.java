@@ -102,6 +102,11 @@ public class UserController {
         return jwtFilter.extractUser(servletRequest);
     }
 
+    @RequestMapping("/get-user/{id}")
+    public User getUser(@PathVariable("id") int id) {
+        return userService.get(id);
+    }
+
 
 //    @RequestMapping(value = "/update-user", method = RequestMethod.POST, consumes = {"application/json"})
 //    public ResponseEntity<User> update(@RequestBody User user, ServletRequest servletRequest) {
