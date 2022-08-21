@@ -61,18 +61,18 @@ public class PostController {
     }
 
     @RequestMapping(value = "/get-all-post", method = RequestMethod.GET)
-    public List<Post> getAllPost() {
+    public List<Map<String, Object>> getAllPost() {
         List<Post> posts = postService.getAll();
-//        List<Map<String, Object>> allData = new ArrayList<Map<String, Object>>();
-//        Map<String, Object> data = new HashMap<String, Object>();
-//        for (Post post: posts) {
-//            User user = userService.get(post.getUserFK());
-//            data.put("post", post);
-//            data.put("user", user);
-//            allData.add(data);
-//        }
+        List<Map<String, Object>> allData = new ArrayList<Map<String, Object>>();
+        Map<String, Object> data = new HashMap<String, Object>();
+        for (Post post: posts) {
+            User user = userService.get(post.getUserFK());
+            data.put("post", post);
+            data.put("user", user);
+            allData.add(data);
+        }
 
-        return posts;
+        return allData;
     }
 
     @RequestMapping(value = "/delete-post/{id}", method = RequestMethod.GET)
