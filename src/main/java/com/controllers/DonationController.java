@@ -1,16 +1,14 @@
 package com.controllers;
 
 import com.models.Donation;
-import com.models.Donor;
 import com.models.History;
-import com.models.Post;
 import com.services.DonationService;
-import com.services.DonorService;
 import com.services.HistoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletRequest;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -22,15 +20,17 @@ public class DonationController {
 
     private final DonationService donationService;
     private final HistoryService historyService;
+    private final UserController userController;
 
-    public DonationController(DonationService donationService, HistoryService historyService) {
+    public DonationController(DonationService donationService, HistoryService historyService, UserController userController) {
         this.donationService = donationService;
         this.historyService = historyService;
+        this.userController = userController;
     }
 
-    @RequestMapping(value = "/get-all-request/{donorId}", method = RequestMethod.GET)
-    public List<Donation> getAllRequestByDonor(@PathVariable("donorId") int donorId) {
-        return donationService.getAllByUser(donorId);
+    @RequestMapping(value = "/get-all-request", method = RequestMethod.GET)
+    public List<Donation> getAllRequestByDonor(ServletRequest servletRequest) {
+        return donationService.getAllByUser(userController.getUser(servletRequest).getUserId());
     }
 
     @RequestMapping(value = "/request-blood", method = RequestMethod.POST, consumes = {"application/json"})

@@ -20,7 +20,7 @@ public class HistoryController {
         this.userController = userController;
     }
 
-    @RequestMapping(value = "/get-visitor-history/", method = RequestMethod.GET)
+    @RequestMapping(value = "/get-visitor-history", method = RequestMethod.GET)
     public List<History> getVisitorHistory(ServletRequest servletRequest) {
         return historyService.getVisitorHistory(userController.getUser(servletRequest).getUserId());
     }
