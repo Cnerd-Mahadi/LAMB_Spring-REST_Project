@@ -1,6 +1,7 @@
 package com.controllers;
 
 import com.models.Post;
+import com.models.User;
 import com.services.PostService;
 import com.services.UserService;
 import org.springframework.http.HttpStatus;
@@ -8,7 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletRequest;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -26,10 +29,14 @@ public class PostController {
     }
 
     @RequestMapping(value = "/create-post", method = RequestMethod.POST, consumes = {"application/json"})
-    public ResponseEntity<Post> makePost(@RequestBody Post post) {
-
+    public ResponseEntity makePost(@RequestBody Post post, ServletRequest servletRequest) {
+        post.setUserFK(userController.getUser(servletRequest).getUserId());
         postService.save(post);
-        return ResponseEntity.ok(post);
+        User user = userService.get(post.getUserFK());
+        Map<String, Object> data = new HashMap<String, Object>();
+        data.put("post", post);
+        data.put("user", user);
+        return ResponseEntity.ok(data);
     }
 
     @RequestMapping(value= "/get-post/{id}", method = RequestMethod.GET)
