@@ -33,10 +33,10 @@ public class AppConfig implements WebMvcConfigurer {
     @Bean
     public DataSource dataSource() {
         MysqlDataSource dataSource = new MysqlDataSource();
-        dataSource.setDatabaseName("blood");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/blood");
-        dataSource.setUser("root");
-        dataSource.setPassword("nerdcon");
+        dataSource.setDatabaseName("sql6512937");
+        dataSource.setUrl("jdbc:mysql://sql6.freesqldatabase.com:3306/sql6512937");
+        dataSource.setUser("sql6512937");
+        dataSource.setPassword("yxbk6a73q3");
         return dataSource;
 
     }
