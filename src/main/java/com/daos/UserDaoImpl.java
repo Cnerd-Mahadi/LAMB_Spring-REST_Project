@@ -44,11 +44,12 @@ public class UserDaoImpl implements UserDao {
     }
 
     public User findByLoginAndPassword(String login, String password) {
-        User user = getByEmail(login);
+        User user = getWithCredByEmail(login);
         if (user != null) {
             if (passwordEncoder.matches(password, user.getPassword())) {
                 return user;
             }
+
         }
         return null;
     }
@@ -64,6 +65,15 @@ public class UserDaoImpl implements UserDao {
     public User getWithCred(int id) {
         Session session = this.sessionFactory.getCurrentSession();
         return session.get(User.class, id);
+    }
+
+    @Override
+    public User getWithCredByEmail(String email) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Query<User> userQuery = session.createQuery("from User u where email = :email", User.class);
+        userQuery.setParameter("email", email);
+        User user = userQuery.uniqueResult();
+        return user == null ? new User() : user;
     }
 
     @Override

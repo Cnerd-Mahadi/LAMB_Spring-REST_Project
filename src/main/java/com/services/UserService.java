@@ -16,6 +16,8 @@ public interface UserService {
 
     public User getByEmail(String email);
 
+    public User getWithCredByEmail(String email);
+
     public User findByLoginAndPassword(String login, String password);
 
     public void update(User user);

@@ -11,6 +11,7 @@ import com.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletRequest;
@@ -31,6 +32,9 @@ public class UserController {
     @Autowired
     private JwtFilter jwtFilter;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     public UserController(UserService userService, DonorService donorService) {
         this.userService = userService;
         this.donorService = donorService;
@@ -43,11 +47,26 @@ public class UserController {
 
     }
 
+    @RequestMapping(value = "/log", method = RequestMethod.POST, consumes = {"application/json"})
+    public String doR(@RequestBody AuthRequest request) {
+
+        User user = userService.getWithCredByEmail(request.getLogin());
+
+        //return ;
+        if(passwordEncoder.matches(request.getPassword(), user.getPassword()))
+            return "MATCHED";
+        return "NOT MATCHED";
+
+
+       // return userService.findByLoginAndPassword(request.getLogin(), request.getPassword());
+
+    }
+
     @RequestMapping(value = "/login-user", method = RequestMethod.POST, consumes = {"application/json"})
     public ResponseEntity auth(@RequestBody AuthRequest request) {
         User user = userService.findByLoginAndPassword(request.getLogin(), request.getPassword());
         if(user == null)
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(HttpStatus.UNAUTHORIZED);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(user);
         String token = jwtProvider.generateToken(user.getEmail());
         return ResponseEntity.ok(new AuthResponse(token));
     }

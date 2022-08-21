@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -30,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
                     .authorizeRequests()
                     .antMatchers("/backend/get-all-post").hasRole("ADMIN")
                     .antMatchers("/backend/get-unique-check").hasRole("USER")
-                    .antMatchers("/backend/login-user", "/backend/save-user").permitAll()
+                    .antMatchers("/backend/login-user", "/backend/save-user", "/backend/log").permitAll()
                     .anyRequest().authenticated()
                     .and()
                     .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

@@ -49,6 +49,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getWithCredByEmail(String email) {
+        return userDao.getWithCredByEmail(email);
+    }
+
+    @Override
     public User findByLoginAndPassword(String login, String password) {
         return userDao.findByLoginAndPassword(login, password);
     }
