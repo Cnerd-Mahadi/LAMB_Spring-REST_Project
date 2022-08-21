@@ -34,7 +34,8 @@ public class DonationController {
     }
 
     @RequestMapping(value = "/request-blood", method = RequestMethod.POST, consumes = {"application/json"})
-    public ResponseEntity<Donation> requestBlood(@RequestBody Donation donation) {
+    public ResponseEntity<Donation> requestBlood(@RequestBody Donation donation, ServletRequest servletRequest) {
+        donation.setRequestId(userController.getUser(servletRequest).getUserId());
         donationService.save(donation);
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
