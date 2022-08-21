@@ -53,7 +53,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/save-user", method = RequestMethod.POST, consumes = {"application/json"})
-    public ResponseEntity<Integer> doRegistration(@RequestBody Map<String,String> data) {
+    public ResponseEntity doRegistration(@RequestBody Map<String,String> data) {
 
         User user = new User();
         user.setUsername(data.get("username"));
@@ -74,7 +74,8 @@ public class UserController {
             donorService.save(donor);
         }
 
-        return ResponseEntity.ok(user.getUserId());
+        String token = jwtProvider.generateToken(user.getEmail());
+        return ResponseEntity.ok(new AuthResponse(token));
     }
 
     @RequestMapping("/get-user")
