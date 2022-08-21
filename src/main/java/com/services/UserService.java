@@ -14,6 +14,10 @@ public interface UserService {
 
     public User get(int id);
 
+    public User getByEmail(String email);
+
+    public User findByLoginAndPassword(String login, String password);
+
     public void update(User user);
 
     public void delete(int id);

@@ -4,6 +4,8 @@ import com.models.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -12,11 +14,11 @@ import java.util.List;
 @Repository
 public class UserDaoImpl implements UserDao {
 
-    private final SessionFactory sessionFactory;
-
-    public UserDaoImpl(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
+    @Autowired
+    private SessionFactory sessionFactory;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+//
 
     @Override
     public List<User> getAll() {
@@ -41,6 +43,16 @@ public class UserDaoImpl implements UserDao {
         return users;
     }
 
+    public User findByLoginAndPassword(String login, String password) {
+        User user = getByEmail(login);
+        if (user != null) {
+            if (passwordEncoder.matches(password, user.getPassword())) {
+                return user;
+            }
+        }
+        return null;
+    }
+
 
     @Override
     public void save(User user) {
@@ -59,6 +71,23 @@ public class UserDaoImpl implements UserDao {
         Session session = this.sessionFactory.getCurrentSession();
         Query userQuery = session.createQuery("select u.userId, u.email, u.username, u.role, u.phone, u.area from User u where u.userId = :uid");
         userQuery.setParameter("uid", id);
+        Object[] obj = (Object[]) userQuery.uniqueResult();
+        User user = new User();
+
+        user.setUserId((Integer) obj[0]);
+        user.setUsername(obj[2].toString());
+        user.setEmail(obj[1].toString());
+        user.setRole(obj[3].toString());
+        user.setPhone(obj[4].toString());
+        user.setArea(obj[5].toString());
+        return user;
+    }
+
+    @Override
+    public User getByEmail(String email) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Query userQuery = session.createQuery("select u.userId, u.email, u.username, u.role, u.phone, u.area from User u where u.email = :email");
+        userQuery.setParameter("email", email);
         Object[] obj = (Object[]) userQuery.uniqueResult();
         User user = new User();
 

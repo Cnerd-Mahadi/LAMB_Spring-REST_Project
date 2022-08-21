@@ -1,13 +1,20 @@
 package com.controllers;
 
+import com.configs.jwt.JwtFilter;
+import com.configs.jwt.JwtProvider;
+import com.models.AuthRequest;
+import com.models.AuthResponse;
 import com.models.Donor;
 import com.models.User;
 import com.services.DonorService;
 import com.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +25,11 @@ public class UserController {
 
     private final UserService userService;
     private final DonorService donorService;
+    @Autowired
+    private JwtProvider jwtProvider;
+
+    @Autowired
+    private JwtFilter jwtFilter;
 
     public UserController(UserService userService, DonorService donorService) {
         this.userService = userService;
@@ -29,6 +41,15 @@ public class UserController {
 
         return userService.uniqueCheckMaterials();
 
+    }
+
+    @RequestMapping(value = "/login-user", method = RequestMethod.POST, consumes = {"application/json"})
+    public ResponseEntity auth(@RequestBody AuthRequest request) {
+        User user = userService.findByLoginAndPassword(request.getLogin(), request.getPassword());
+        if(user == null)
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(HttpStatus.UNAUTHORIZED);
+        String token = jwtProvider.generateToken(user.getEmail());
+        return ResponseEntity.ok(new AuthResponse(token));
     }
 
     @RequestMapping(value = "/save-user", method = RequestMethod.POST, consumes = {"application/json"})
@@ -56,9 +77,9 @@ public class UserController {
         return ResponseEntity.ok(user.getUserId());
     }
 
-    @RequestMapping("/get-user/{id}")
-    public User getUser(@PathVariable("id") Integer id) {
-        return userService.get(id);
+    @RequestMapping("/get-user")
+    public User getUser(ServletRequest servletRequest) {
+        return jwtFilter.extractUser(servletRequest);
     }
 
 

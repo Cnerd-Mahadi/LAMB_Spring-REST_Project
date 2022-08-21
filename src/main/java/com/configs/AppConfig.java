@@ -9,7 +9,6 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
@@ -20,7 +19,7 @@ import java.util.Properties;
 @Configuration
 @EnableWebMvc
 @EnableTransactionManagement
-@ComponentScan(basePackages = {"com.daos","com.services","com.controllers"})
+@ComponentScan(basePackages = {"com.daos","com.services","com.controllers", "com.configs"})
 public class AppConfig implements WebMvcConfigurer {
 
     @Bean
@@ -30,11 +29,6 @@ public class AppConfig implements WebMvcConfigurer {
         internalResourceViewResolver.setSuffix(".jsp");
         return internalResourceViewResolver;
     }
-
-//    @Bean
-//    public void addCorsMappings(CorsRegistry registry) {
-//                registry.addMapping("/greeting-javaconfig").allowedOrigins("http://localhost:8080");
-//            }
 
     @Bean
     public DataSource dataSource() {
