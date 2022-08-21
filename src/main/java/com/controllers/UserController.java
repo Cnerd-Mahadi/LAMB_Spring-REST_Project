@@ -103,12 +103,12 @@ public class UserController {
     }
 
 
-    @RequestMapping(value = "/update-user", method = RequestMethod.POST, consumes = {"application/json"})
-    public ResponseEntity<User> update(@RequestBody User user, ServletRequest servletRequest) {
-        user.setUserId(jwtFilter.extractUser(servletRequest).getUserId());
-        userService.update(user);
-        return ResponseEntity.ok(user);
-    }
+//    @RequestMapping(value = "/update-user", method = RequestMethod.POST, consumes = {"application/json"})
+//    public ResponseEntity<User> update(@RequestBody User user, ServletRequest servletRequest) {
+//        user.setUserId(jwtFilter.extractUser(servletRequest).getUserId());
+//        userService.update(user);
+//        return ResponseEntity.ok(user);
+//    }
 
 //    @RequestMapping("/delete-user")
 //    public String delete(@RequestParam("userId") int id) {
