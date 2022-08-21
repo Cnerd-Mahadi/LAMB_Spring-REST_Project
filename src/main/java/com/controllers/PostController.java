@@ -71,6 +71,7 @@ public class PostController {
             data.put("user", user);
             allData.add(data);
         }
+
         return allData;
     }
 
