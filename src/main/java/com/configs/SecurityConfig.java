@@ -26,11 +26,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
                     .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                     .and()
                     .authorizeRequests()
-//                    .antMatchers("/backend/get-all-post").hasRole("USER")
-//                    .antMatchers("/backend/get-unique-check").hasRole("USER")
-//                    .antMatchers("/backend/login-user", "/backend/save-user", "/backend/log").permitAll()
-                    .anyRequest().permitAll()
-                    //.authenticated()
+                    .antMatchers("/backend/login-user", "/backend/save-user").permitAll()
+                    .anyRequest().authenticated()
                     .and()
                     .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         }

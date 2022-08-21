@@ -1,13 +1,10 @@
 package com.controllers;
 
-import com.models.Donation;
 import com.models.History;
-import com.services.DonationService;
 import com.services.HistoryService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletRequest;
 import java.util.List;
 
 @RestController
@@ -16,19 +13,21 @@ import java.util.List;
 public class HistoryController {
 
     private final HistoryService historyService;
+    private final UserController userController;
 
-    public HistoryController(HistoryService historyService) {
+    public HistoryController(HistoryService historyService, UserController userController) {
         this.historyService = historyService;
+        this.userController = userController;
     }
 
-    @RequestMapping(value = "/get-visitor-history/{visitorId}", method = RequestMethod.GET)
-    public List<History> getVisitorHistory(@PathVariable("visitorId") int visitorId) {
-        return historyService.getVisitorHistory(visitorId);
+    @RequestMapping(value = "/get-visitor-history/", method = RequestMethod.GET)
+    public List<History> getVisitorHistory(ServletRequest servletRequest) {
+        return historyService.getVisitorHistory(userController.getUser(servletRequest).getUserId());
     }
 
-    @RequestMapping(value = "/get-donor-history/{donorId}", method = RequestMethod.GET)
-    public List<History> getDonorHistory(@PathVariable("donorId") int donorId) {
-        return historyService.getDonorHistory(donorId);
+    @RequestMapping(value = "/get-donor-history", method = RequestMethod.GET)
+    public List<History> getDonorHistory(ServletRequest servletRequest) {
+        return historyService.getVisitorHistory(userController.getUser(servletRequest).getUserId());
     }
 
 
