@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletRequest;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,13 +46,32 @@ public class PostController {
     }
 
     @RequestMapping(value = "/get-all-post-user", method = RequestMethod.GET)
-    public List<Post> getAllPostByUser(ServletRequest servletRequest) {
-        return postService.getPostByUser(userController.getUser(servletRequest).getUserId());
+    public List<Map<String, Object>> getAllPostByUser(ServletRequest servletRequest) {
+        int userId = userController.getUser(servletRequest).getUserId();
+        List<Post> posts = postService.getPostByUser(userId);
+        List<Map<String, Object>> allData = new ArrayList<Map<String, Object>>();
+        Map<String, Object> data = new HashMap<String, Object>();
+        for (Post post: posts) {
+            User user = userService.get(post.getUserFK());
+            data.put("post", post);
+            data.put("user", user);
+            allData.add(data);
+        }
+        return allData;
     }
 
     @RequestMapping(value = "/get-all-post", method = RequestMethod.GET)
-    public List<Post> showAllPost() {
-        return postService.getAll();
+    public List<Map<String, Object>> getAllPost() {
+        List<Post> posts = postService.getAll();
+        List<Map<String, Object>> allData = new ArrayList<Map<String, Object>>();
+        Map<String, Object> data = new HashMap<String, Object>();
+        for (Post post: posts) {
+            User user = userService.get(post.getUserFK());
+            data.put("post", post);
+            data.put("user", user);
+            allData.add(data);
+        }
+        return allData;
     }
 
     @RequestMapping(value = "/delete-post/{id}", method = RequestMethod.GET)
