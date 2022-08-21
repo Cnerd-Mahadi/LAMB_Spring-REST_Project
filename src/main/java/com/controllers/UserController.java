@@ -83,7 +83,7 @@ public class UserController {
         user.setArea(data.get("area"));
         userService.save(user);
 
-        if(user.getRole().equals("donor")) {
+        if(user.getRole().equals("ROLE_DONOR")) {
 
             Donor donor = new Donor();
             donor.setEligibility(data.get("eligibility"));
