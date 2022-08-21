@@ -29,10 +29,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
                     .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                     .and()
                     .authorizeRequests()
-                    .antMatchers("/backend/get-all-post").hasRole("USER")
-                    .antMatchers("/backend/get-unique-check").hasRole("USER")
-                    .antMatchers("/backend/login-user", "/backend/save-user", "/backend/log").permitAll()
-                    .anyRequest().authenticated()
+//                    .antMatchers("/backend/get-all-post").hasRole("USER")
+//                    .antMatchers("/backend/get-unique-check").hasRole("USER")
+//                    .antMatchers("/backend/login-user", "/backend/save-user", "/backend/log").permitAll()
+                    .anyRequest().permitAll()
+                    //.authenticated()
                     .and()
                     .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         }
